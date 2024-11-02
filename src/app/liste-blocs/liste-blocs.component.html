@@ -1,0 +1,56 @@
+<div class="container">
+  <h1>Liste des Blocs</h1>
+
+  <!-- Liste des blocs -->
+  <ul class="bloc-list">
+    <li *ngFor="let bloc of blocs" (click)="selectBloc(bloc)">
+      {{ bloc.nomBloc }} - Capacité: {{ bloc.capaciteBloc }}
+      <button class="delete-btn" (click)="deleteBloc(bloc.idBloc); $event.stopPropagation()">Supprimer</button>
+    </li>
+  </ul>
+
+  <!-- Formulaire d'ajout -->
+  <div *ngIf="!selectedBloc" class="form-container">
+    <h2>Ajouter un Bloc</h2>
+    <form (ngSubmit)="addBloc(newBloc)">
+      <input
+        type="text"
+        [(ngModel)]="newBloc.nomBloc"
+        placeholder="Nom du bloc"
+        name="name"
+        required
+      />
+      <input
+        type="number"
+        [(ngModel)]="newBloc.capaciteBloc"
+        placeholder="Capacité"
+        name="capacity"
+        required
+      />
+      <button type="submit" class="submit-btn">Ajouter</button>
+    </form>
+  </div>
+
+  <!-- Formulaire de modification -->
+  <div *ngIf="selectedBloc" class="form-container">
+    <h2>Modifier le Bloc</h2>
+    <form (ngSubmit)="updateBloc(selectedBloc)">
+      <input
+        type="text"
+        [(ngModel)]="selectedBloc.nomBloc"
+        placeholder="Nom du bloc"
+        name="name"
+        required
+      />
+      <input
+        type="number"
+        [(ngModel)]="selectedBloc.capaciteBloc"
+        placeholder="Capacité"
+        name="capacity"
+        required
+      />
+      <button type="submit" class="submit-btn">Mettre à jour</button>
+      <button type="button" (click)="selectedBloc = null" class="cancel-btn">Annuler</button>
+    </form>
+  </div>
+</div>
